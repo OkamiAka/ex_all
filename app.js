@@ -29,7 +29,17 @@ const welcome = (req, res) => {
 };
 const HANDLER = (req, res) => {
   database
-    .query("select * from users")
+    .query(
+      `select * from users ${
+        req.query.language || req.query.city
+          ? `where ${
+              req.query.language ? `language='${req.query.language}'` : ""
+            } ${req.query.city && req.query.language ? "and" : ""} ${
+              req.query.city ? `city='${req.query.city}'` : ""
+            }`
+          : ""
+      }`
+    )
     .then(([users]) => {
       res.json(users);
     })
@@ -100,3 +110,6 @@ app.post("/api/users", postUser);
 app.get("/api/users/:id", user);
 app.put("/api/users/:id", putUser);
 app.delete("/api/users/:id", delUser);
+
+// app.get("/api/users", );
+// app.get("/api/users", );
