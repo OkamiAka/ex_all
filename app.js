@@ -104,12 +104,11 @@ const delUser = (req, res) => {
 };
 app.get("/", welcome);
 
-app.get("/api/users", HANDLER);
-app.post("/api/users", postUser);
+app.get("/users", HANDLER);
+app.post("/users", postUser);
 
-app.get("/api/users/:id", user);
-app.put("/api/users/:id", putUser);
-app.delete("/api/users/:id", delUser);
+app.get("/users/:id", user);
+app.put("/users/:id", putUser);
+app.delete("/users/:id", delUser);
 
-// app.get("/api/users", );
-// app.get("/api/users", );
+// app.get("/users", );
