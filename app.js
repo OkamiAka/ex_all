@@ -60,15 +60,16 @@ const user = (req, res) => {
     });
 };
 const postUser = (req, res) => {
-  const { title, director, year, color, duration } = req.body;
+  const { name, mail, mdp } = req.body;
 
   database
-    .query(
-      "INSERT INTO users(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
-      [title, director, year, color, duration]
-    )
+    .query("INSERT INTO users(name, mail, mdp) VALUES (?, ?, ?)", [
+      name,
+      mail,
+      mdp,
+    ])
     .then(() => {
-      res.send("✔");
+      res.send(201);
     })
     .catch((err) => {
       console.error(err);
@@ -76,15 +77,17 @@ const postUser = (req, res) => {
     });
 };
 const putUser = (req, res) => {
-  const { title, director, year, color, duration } = req.body;
+  const { name, mail, mdp } = req.body;
 
   database
-    .query(
-      "UPDATE `users` SET `title`=?,`director`=?,`year`=?,`color`=?,`duration`=? WHERE `id`=?",
-      [title, director, year, color, duration, req.params.id]
-    )
+    .query("UPDATE `users` SET `name`=?,`mail`=?,`mdp`=? WHERE `id`=?", [
+      name,
+      mail,
+      mdp,
+      req.params.id,
+    ])
     .then(() => {
-      res.send("✔");
+      res.send(200);
     })
     .catch((err) => {
       console.error(err);
@@ -95,7 +98,7 @@ const delUser = (req, res) => {
   database
     .query("DELETE FROM users WHERE id=?", [req.params.id])
     .then(() => {
-      res.send("DELETE ✔");
+      res.send(200);
     })
     .catch((err) => {
       console.error(err);
